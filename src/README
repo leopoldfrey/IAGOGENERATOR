@@ -1,0 +1,41 @@
+Generator for pytorch LSTM language models
+------------------------------------------
+Benoit Favre 2017-12-05
+
+Installation:
+-------------
+
+Install pytorch using instructions on http://pytorch.org
+
+The model was trained with pytorch 0.1.12 and python2.
+
+Usage:
+------
+
+from __future__ import print_function
+from generator import Generator
+
+generator = Generator('iagotchi.model')
+result = generator.generate(200)
+print(' '.join(result))
+
+generate takes the following parameters:
+- num: maximum number of words to generate
+- prime: text to start generation with
+- temperature: quantity of risk the generator will take (0.1 = low risk, 1.0 = high risk)
+- end_at: list of words which stop the generation when they are generated 
+
+Restricting output:
+------------------
+
+The second parameter to the generator is a file containing a list of allowed words.
+Then one can add or remove words from this list by using generator.allow and generator.disallow.
+
+generator = Generator('abu.model', 'wordlist.3-5ans.txt')
+generator.allow(['rouge', 'vert', 'bleu'])
+generator.disallow(['noir', 'blanc'])
+result = generator.generate(20, 'ma couleur préférée est le')
+print(' '.join(result))
+
+The native word list of the model can be shown with:
+print(generator.model.dictionary.word2idx.keys())
