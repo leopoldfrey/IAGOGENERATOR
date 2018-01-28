@@ -76,6 +76,8 @@ class Generator:
             result = self.generate(200, prime='<eos>', temperature=0.9)
             thetext = ' '.join([x for x in result if x != '<eos>'])
             thetext = ("   " + thetext + "   ").strip('<eos>')
+            thetext = thetext.replace("(", " ")
+            thetext = thetext.replace(")", " ")
             thetext = thetext.strip(';')
             print(thetext)
             self.osc_client.send("/generator/result "+thetext);
