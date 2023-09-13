@@ -1,2 +1,5 @@
 
 .pydevproject
+*.pyc
+src/.DS_Store
+src/*.pyc
